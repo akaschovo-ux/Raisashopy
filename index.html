@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Raisa Shopy</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo" id="shopName">
+      Raisa Shopy
+    </div>
+  </header>
+
+
+  <!-- HERO / HOME -->
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="welcome">
+        WELCOME TO
+      </div>
+
+      <h1 id="heroTitle">
+        Raisa Shopy
+      </h1>
+
+      <p id="heroText">
+        Quality Products At Special Prices
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- PRODUCT -->
+  <section class="product-section">
+
+    <!-- PRODUCT IMAGES -->
+    <div class="gallery">
+
+      <div class="main-image-box">
+
+        <img
+          id="mainProductImage"
+          src=""
+          alt="Product"
+        >
+
+      </div>
+
+
+      <!-- MAX 6 PRODUCT IMAGES -->
+      <div
+        class="product-thumbnails"
+        id="productThumbnails">
+      </div>
+
+    </div>
+
+
+    <!-- PRODUCT INFORMATION -->
+    <div class="product-info">
+
+      <h2 id="productName">
+        Product Name
+      </h2>
+
+
+      <!-- PRICE -->
+      <div class="price-area">
+
+        <span
+          class="old-price"
+          id="oldPrice">
+        </span>
+
+        <span
+          class="new-price"
+          id="newPrice">
+        </span>
+
+        <span
+          class="discount"
+          id="discount">
+        </span>
+
+      </div>
+
+
+      <!-- DESCRIPTION -->
+      <div class="description">
+
+        <p id="descriptionText">
+          Product description will appear here.
+        </p>
+
+      </div>
+
+
+      <!-- DESCRIPTION IMAGES MAX 5 -->
+      <div
+        class="description-images"
+        id="descriptionImages">
+      </div>
+
+
+      <!-- PRODUCT VIDEO -->
+      <div
+        class="product-video"
+        id="videoContainer">
+
+        <video
+          id="productVideo"
+          controls
+          muted
+          autoplay
+          loop
+          playsinline>
+        </video>
+
+      </div>
+
+
+      <!-- ORDER AREA -->
+      <div class="order-area">
+
+        <!-- QUANTITY -->
+        <label>
+          Quantity
+        </label>
+
+        <div class="quantity-box">
+
+          <button
+            type="button"
+            id="minusBtn">
+            −
+          </button>
+
+          <input
+            type="number"
+            id="quantity"
+            value="1"
+            min="1"
+          >
+
+          <button
+            type="button"
+            id="plusBtn">
+            +
+          </button>
+
+        </div>
+
+
+        <!-- TOTAL -->
+        <div class="total-price">
+
+          <span>
+            Total
+          </span>
+
+          <strong id="totalPrice">
+            SAR 0.00
+          </strong>
+
+        </div>
+
+
+        <!-- CUSTOMER NAME -->
+        <label for="customerName">
+          Customer Name
+        </label>
+
+        <input
+          type="text"
+          id="customerName"
+          placeholder="Enter your name"
+        >
+
+
+        <!-- PHONE -->
+        <label for="customerPhone">
+          Phone Number
+        </label>
+
+        <input
+          type="tel"
+          id="customerPhone"
+          placeholder="Enter phone number"
+        >
+
+
+        <!-- ADDRESS -->
+        <label for="customerAddress">
+          Address
+        </label>
+
+        <textarea
+          id="customerAddress"
+          rows="4"
+          placeholder="Enter delivery address">
+        </textarea>
+
+
+        <!-- ONLY ONE ORDER BUTTON -->
+        <button
+          type="button"
+          class="order-button"
+          id="orderNow">
+
+          ORDER NOW — WhatsApp
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <p id="footerText">
+      © Raisa Shopy
+    </p>
+
+  </footer>
+
+
+  <!-- JAVASCRIPT -->
+  <script src="script.js"></script>
+
+</body>
+</html>
