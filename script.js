@@ -1,378 +1,338 @@
-```javascript
-const defaultData = {
-  shopName: "Raisa Shopy",
-  heroTitle: "Welcome to Raisa Shopy",
-  heroText: "Discover beautiful products at amazing prices.",
-  productName: "Your Product",
-  oldPrice: 199,
-  newPrice: 149,
-  description: "Write your product description here.",
-  whatsappNumber: "966500000000",
-  productImages: [],
-  descriptionImages: [],
-  mainProductImage: "",
-  video: "",
-  footerText: "© 2026 Raisa Shopy. All Rights Reserved."
-};
+document.addEventListener("DOMContentLoaded", function () {
+  const defaultData = {
+    shopName: "Raisa Shopy",
+    heroTitle: "Welcome to Raisa Shopy",
+    heroText: "Discover beautiful products at amazing prices.",
+    productName: "Your Product",
+    oldPrice: 199,
+    newPrice: 149,
+    description: "Write your product description here.",
+    whatsappNumber: "966500000000",
+    productImages: [],
+    descriptionImages: [],
+    mainProductImage: "",
+    video: "",
+    footerText: "© 2026 Raisa Shopy. All Rights Reserved."
+  };
 
-let shopData = {};
+  let shopData = {};
 
-try {
-  const saved =
-    localStorage.getItem("raisaShopData");
-
-  shopData = saved
-    ? JSON.parse(saved)
-    : {};
-} catch (error) {
-  shopData = {};
-}
-
-shopData = Object.assign(
-  {},
-  defaultData,
-  shopData
-);
-
-if (!Array.isArray(shopData.productImages)) {
-  shopData.productImages = [];
-}
-
-if (!Array.isArray(shopData.descriptionImages)) {
-  shopData.descriptionImages = [];
-}
-
-
-function formatPrice(price) {
-  return Number(price || 0).toFixed(2);
-}
-
-
-function calculateDiscount(oldPrice, newPrice) {
-  const oldP = Number(oldPrice || 0);
-  const newP = Number(newPrice || 0);
-
-  if (oldP <= 0 || newP >= oldP) {
-    return 0;
+  try {
+    const saved = localStorage.getItem("raisaShopData");
+    shopData = saved ? JSON.parse(saved) : {};
+  } catch (error) {
+    console.error("Could not load shop data:", error);
+    shopData = {};
   }
 
-  return Math.round(
-    ((oldP - newP) / oldP) * 100
+  shopData = Object.assign({}, defaultData, shopData);
+
+  if (!Array.isArray(shopData.productImages)) {
+    shopData.productImages = [];
+  }
+
+  if (!Array.isArray(shopData.descriptionImages)) {
+    shopData.descriptionImages = [];
+  }
+
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.textContent = value || "";
+    }
+  }
+
+  function formatPrice(value) {
+    return Number(value || 0).toFixed(2);
+  }
+
+  function getDiscount(oldPrice, newPrice) {
+    const oldValue = Number(oldPrice || 0);
+    const newValue = Number(newPrice || 0);
+
+    if (oldValue <= 0 || newValue >= oldValue) {
+      return 0;
+    }
+
+    return Math.round(
+      ((oldValue - newValue) / oldValue) * 100
+    );
+  }
+
+  setText("shopName", shopData.shopName);
+  setText("heroTitle", shopData.heroTitle);
+  setText("heroText", shopData.heroText);
+  setText("productName", shopData.productName);
+  setText("descriptionText", shopData.description);
+  setText("footerText", shopData.footerText);
+
+  setText(
+    "oldPrice",
+    formatPrice(shopData.oldPrice) + " SAR"
   );
-}
+
+  setText(
+    "newPrice",
+    formatPrice(shopData.newPrice) + " SAR"
+  );
+
+  setText(
+    "discount",
+    getDiscount(
+      shopData.oldPrice,
+      shopData.newPrice
+    ) + "% OFF"
+  );
 
 
-document.getElementById("shopName").textContent =
-  shopData.shopName;
+  // ======================================
+  // Product Gallery
+  // ======================================
 
-document.getElementById("heroTitle").textContent =
-  shopData.heroTitle;
+  const mainImage =
+    document.getElementById("mainProductImage");
 
-document.getElementById("heroText").textContent =
-  shopData.heroText;
+  const thumbnails =
+    document.getElementById("productThumbnails");
 
-document.getElementById("productName").textContent =
-  shopData.productName;
+  if (mainImage && thumbnails) {
+    thumbnails.innerHTML = "";
 
-document.getElementById("descriptionText").textContent =
-  shopData.description;
+    if (shopData.productImages.length > 0) {
+      mainImage.style.display = "block";
 
-document.getElementById("footerText").textContent =
-  shopData.footerText;
+      let selectedImage =
+        shopData.mainProductImage;
 
-
-document.getElementById("oldPrice").textContent =
-  formatPrice(shopData.oldPrice) + " SAR";
-
-document.getElementById("newPrice").textContent =
-  formatPrice(shopData.newPrice) + " SAR";
-
-
-document.getElementById("discount").textContent =
-  calculateDiscount(
-    shopData.oldPrice,
-    shopData.newPrice
-  ) + "% OFF";
-
-
-const mainImage =
-  document.getElementById("mainProductImage");
-
-const thumbnailBox =
-  document.getElementById("productThumbnails");
-
-
-function renderProductGallery() {
-
-  thumbnailBox.innerHTML = "";
-
-  if (!shopData.productImages.length) {
-
-    mainImage.style.display = "none";
-
-    return;
-  }
-
-  mainImage.style.display = "block";
-
-
-  let selectedImage =
-    shopData.mainProductImage;
-
-  if (
-    !selectedImage ||
-    !shopData.productImages.includes(selectedImage)
-  ) {
-    selectedImage =
-      shopData.productImages[0];
-  }
-
-  mainImage.src =
-    selectedImage;
-
-
-  shopData.productImages.forEach(
-    function(image, index) {
-
-      const thumb =
-        document.createElement("img");
-
-      thumb.src = image;
-
-      thumb.alt =
-        "Product Image " + (index + 1);
-
-      thumb.className =
-        "product-thumbnail";
-
-      if (image === selectedImage) {
-        thumb.classList.add("active");
+      if (
+        !selectedImage ||
+        !shopData.productImages.includes(selectedImage)
+      ) {
+        selectedImage =
+          shopData.productImages[0];
       }
 
-      thumb.onclick =
-        function() {
+      mainImage.src = selectedImage;
 
+      shopData.productImages.forEach(function (image, index) {
+        const thumb =
+          document.createElement("img");
+
+        thumb.src = image;
+        thumb.alt =
+          "Product Image " + (index + 1);
+
+        thumb.className =
+          "product-thumbnail";
+
+        if (image === selectedImage) {
+          thumb.classList.add("active");
+        }
+
+        thumb.addEventListener("click", function () {
           mainImage.src = image;
 
           document
             .querySelectorAll(".product-thumbnail")
-            .forEach(function(item) {
-
+            .forEach(function (item) {
               item.classList.remove("active");
             });
 
           thumb.classList.add("active");
-        };
+        });
 
-      thumbnailBox.appendChild(thumb);
+        thumbnails.appendChild(thumb);
+      });
+    } else {
+      mainImage.style.display = "none";
     }
-  );
-}
-
-
-renderProductGallery();
-
-
-const descriptionBox =
-  document.getElementById(
-    "descriptionImages"
-  );
-
-descriptionBox.innerHTML = "";
-
-shopData.descriptionImages.forEach(
-  function(image) {
-
-    const img =
-      document.createElement("img");
-
-    img.src = image;
-
-    img.alt =
-      "Product Description";
-
-    descriptionBox.appendChild(img);
   }
-);
 
 
-const videoContainer =
-  document.getElementById(
-    "videoContainer"
-  );
+  // ======================================
+  // Description Images
+  // ======================================
 
-const productVideo =
-  document.getElementById(
-    "productVideo"
-  );
+  const descriptionBox =
+    document.getElementById("descriptionImages");
 
+  if (descriptionBox) {
+    descriptionBox.innerHTML = "";
 
-if (shopData.video) {
+    shopData.descriptionImages.forEach(function (image, index) {
+      const img =
+        document.createElement("img");
 
-  videoContainer.style.display =
-    "block";
+      img.src = image;
+      img.alt =
+        "Description Image " + (index + 1);
 
-  productVideo.src =
-    shopData.video;
-
-} else {
-
-  videoContainer.style.display =
-    "none";
-}
+      descriptionBox.appendChild(img);
+    });
+  }
 
 
-let quantity = 1;
+  // ======================================
+  // Product Video
+  // ======================================
 
-const quantityInput =
-  document.getElementById(
-    "quantity"
-  );
+  const videoContainer =
+    document.getElementById("videoContainer");
 
-const totalPrice =
-  document.getElementById(
-    "totalPrice"
-  );
+  const productVideo =
+    document.getElementById("productVideo");
 
-
-function updateTotal() {
-
-  const price =
-    Number(shopData.newPrice || 0);
-
-  const total =
-    price * quantity;
-
-  quantityInput.value =
-    quantity;
-
-  totalPrice.textContent =
-    total.toFixed(2) + " SAR";
-}
+  if (videoContainer && productVideo) {
+    if (shopData.video) {
+      videoContainer.style.display = "block";
+      productVideo.src = shopData.video;
+    } else {
+      videoContainer.style.display = "none";
+    }
+  }
 
 
-document.getElementById(
-  "minusBtn"
-).onclick = function() {
+  // ======================================
+  // Quantity
+  // ======================================
 
-  if (quantity > 1) {
-    quantity--;
+  let quantity = 1;
+
+  const quantityInput =
+    document.getElementById("quantity");
+
+  const totalPrice =
+    document.getElementById("totalPrice");
+
+  function updateTotal() {
+    const price =
+      Number(shopData.newPrice || 0);
+
+    const total =
+      price * quantity;
+
+    if (quantityInput) {
+      quantityInput.value = quantity;
+    }
+
+    if (totalPrice) {
+      totalPrice.textContent =
+        total.toFixed(2) + " SAR";
+    }
+  }
+
+  const minusBtn =
+    document.getElementById("minusBtn");
+
+  if (minusBtn) {
+    minusBtn.addEventListener("click", function () {
+      if (quantity > 1) {
+        quantity--;
+      }
+
+      updateTotal();
+    });
+  }
+
+  const plusBtn =
+    document.getElementById("plusBtn");
+
+  if (plusBtn) {
+    plusBtn.addEventListener("click", function () {
+      quantity++;
+      updateTotal();
+    });
   }
 
   updateTotal();
-};
 
 
-document.getElementById(
-  "plusBtn"
-).onclick = function() {
+  // ======================================
+  // WhatsApp Order
+  // ======================================
 
-  quantity++;
+  const orderButton =
+    document.getElementById("orderNow");
 
-  updateTotal();
-};
+  if (orderButton) {
+    orderButton.addEventListener("click", function () {
+      const customerName =
+        document
+          .getElementById("customerName")
+          .value
+          .trim();
 
+      const customerPhone =
+        document
+          .getElementById("customerPhone")
+          .value
+          .trim();
 
-updateTotal();
+      const customerAddress =
+        document
+          .getElementById("customerAddress")
+          .value
+          .trim();
 
+      if (
+        !customerName ||
+        !customerPhone ||
+        !customerAddress
+      ) {
+        alert(
+          "Please fill in your name, phone and address."
+        );
 
-document.getElementById(
-  "orderNow"
-).onclick = function() {
+        return;
+      }
 
-  const customerName =
-    document.getElementById(
-      "customerName"
-    ).value.trim();
+      const total =
+        Number(shopData.newPrice || 0) *
+        quantity;
 
-  const customerPhone =
-    document.getElementById(
-      "customerPhone"
-    ).value.trim();
+      const number =
+        String(
+          shopData.whatsappNumber || ""
+        ).replace(/\D/g, "");
 
-  const customerAddress =
-    document.getElementById(
-      "customerAddress"
-    ).value.trim();
+      if (!number) {
+        alert(
+          "WhatsApp number is not configured."
+        );
 
+        return;
+      }
 
-  if (!customerName ||
-      !customerPhone ||
-      !customerAddress) {
+      const message =
+        "Hello Raisa Shopy,\n\n" +
+        "Product: " +
+        shopData.productName +
+        "\n" +
+        "Price: " +
+        formatPrice(shopData.newPrice) +
+        " SAR\n" +
+        "Quantity: " +
+        quantity +
+        "\n" +
+        "Total: " +
+        total.toFixed(2) +
+        " SAR\n\n" +
+        "Customer Name: " +
+        customerName +
+        "\n" +
+        "Phone: " +
+        customerPhone +
+        "\n" +
+        "Address: " +
+        customerAddress;
 
-    alert(
-      "Please fill in your name, phone and address."
-    );
+      const url =
+        "https://wa.me/" +
+        number +
+        "?text=" +
+        encodeURIComponent(message);
 
-    return;
+      window.open(url, "_blank");
+    });
   }
-
-
-  const total =
-    Number(shopData.newPrice || 0) *
-    quantity;
-
-
-  const message =
-    "Hello Raisa Shopy,%0A%0A" +
-    "Product: " +
-    encodeURIComponent(
-      shopData.productName
-    ) +
-    "%0A" +
-    "Price: " +
-    encodeURIComponent(
-      formatPrice(shopData.newPrice) +
-      " SAR"
-    ) +
-    "%0A" +
-    "Quantity: " +
-    quantity +
-    "%0A" +
-    "Total: " +
-    encodeURIComponent(
-      total.toFixed(2) +
-      " SAR"
-    ) +
-    "%0A%0A" +
-    "Customer Name: " +
-    encodeURIComponent(
-      customerName
-    ) +
-    "%0A" +
-    "Phone: " +
-    encodeURIComponent(
-      customerPhone
-    ) +
-    "%0A" +
-    "Address: " +
-    encodeURIComponent(
-      customerAddress
-    );
-
-
-  const number =
-    String(
-      shopData.whatsappNumber || ""
-    ).replace(/\D/g, "");
-
-
-  if (!number) {
-
-    alert(
-      "WhatsApp number is not configured."
-    );
-
-    return;
-  }
-
-
-  window.open(
-    "https://wa.me/" +
-    number +
-    "?text=" +
-    message,
-    "_blank"
-  );
-};
-```
+});
