@@ -7,6 +7,11 @@ if (sessionStorage.getItem("raisaAdminLoggedIn") !== "true") {
   window.location.href = "login.html";
 }
 
+
+// ======================================
+// Default Data
+// ======================================
+
 const defaultData = {
   shopName: "Raisa Shopy",
   heroTitle: "Welcome to Raisa Shopy",
@@ -22,14 +27,19 @@ const defaultData = {
   footerText: "© 2026 Raisa Shopy. All Rights Reserved."
 };
 
+
+// ======================================
+// Load Existing Data
+// ======================================
+
 let shopData;
 
 try {
   shopData =
     JSON.parse(localStorage.getItem("raisaShopData")) ||
-    structuredClone(defaultData);
+    JSON.parse(JSON.stringify(defaultData));
 } catch (error) {
-  shopData = structuredClone(defaultData);
+  shopData = JSON.parse(JSON.stringify(defaultData));
 }
 
 shopData.productImages = Array.isArray(shopData.productImages)
@@ -55,11 +65,17 @@ const oldPrice = document.getElementById("oldPrice");
 const newPrice = document.getElementById("newPrice");
 const description = document.getElementById("description");
 
-const whatsappNumber = document.getElementById("whatsappNumber");
+const whatsappNumber =
+  document.getElementById("whatsappNumber");
 
-const productImages = document.getElementById("productImages");
-const descriptionImages = document.getElementById("descriptionImages");
-const productVideo = document.getElementById("productVideo");
+const productImages =
+  document.getElementById("productImages");
+
+const descriptionImages =
+  document.getElementById("descriptionImages");
+
+const productVideo =
+  document.getElementById("productVideo");
 
 const productImagePreview =
   document.getElementById("productImagePreview");
@@ -70,9 +86,14 @@ const descriptionImagePreview =
 const videoPreview =
   document.getElementById("videoPreview");
 
-const saveBtn = document.getElementById("saveBtn");
-const saveMessage = document.getElementById("saveMessage");
-const logoutBtn = document.getElementById("logoutBtn");
+const saveBtn =
+  document.getElementById("saveBtn");
+
+const saveMessage =
+  document.getElementById("saveMessage");
+
+const logoutBtn =
+  document.getElementById("logoutBtn");
 
 
 // ======================================
@@ -102,7 +123,8 @@ function loadForm() {
   newPrice.value = shopData.newPrice ?? "";
   description.value = shopData.description || "";
 
-  whatsappNumber.value = shopData.whatsappNumber || "";
+  whatsappNumber.value =
+    shopData.whatsappNumber || "";
 
   showProductImages();
   showDescriptionImages();
@@ -111,7 +133,7 @@ function loadForm() {
 
 
 // ======================================
-// Product Images
+// Product Image Preview
 // ======================================
 
 function showProductImages() {
@@ -137,13 +159,14 @@ function showProductImages() {
 
     box.appendChild(img);
     box.appendChild(button);
+
     productImagePreview.appendChild(box);
   });
 }
 
 
 // ======================================
-// Description Images
+// Description Image Preview
 // ======================================
 
 function showDescriptionImages() {
@@ -169,13 +192,14 @@ function showDescriptionImages() {
 
     box.appendChild(img);
     box.appendChild(button);
+
     descriptionImagePreview.appendChild(box);
   });
 }
 
 
 // ======================================
-// Read File
+// Read File As Base64
 // ======================================
 
 function readFile(file) {
@@ -196,7 +220,7 @@ function readFile(file) {
 
 
 // ======================================
-// Product Image Upload
+// Product Images Upload
 // ======================================
 
 productImages.addEventListener("change", async function () {
@@ -214,169 +238,7 @@ productImages.addEventListener("change", async function () {
 
   try {
     for (const file of files) {
-      const image = await readFile(file);
-      shopData.productImages.push(image);
-    }
-
-    saveData();
-    showProductImages();
-  } catch (error) {
-    console.error(error);
-    alert("Could not upload product image.");
-  }
-
-  productImages.value = "";
-});
-
-
-// ======================================
-// Description Image Upload
-// ======================================
-
-descriptionImages.addEventListener("change", async function () {
-  const files = Array.from(descriptionImages.files);
-
-  if (!files.length) {
-    return;
-  }
-
-  if (
-    shopData.descriptionImages.length + files.length > 5
-  ) {
-    alert("Maximum 5 description images are allowed.");
-    descriptionImages.value = "";
-    return;
-  }
-
-  try {
-    for (const file of files) {
-      const image = await readFile(file);
-      shopData.descriptionImages.push(image);
-    }
-
-    saveData();
-    showDescriptionImages();
-  } catch (error) {
-    console.error(error);
-    alert("Could not upload description image.");
-  }
-
-  descriptionImages.value = "";
-});
-
-
-// ======================================
-// Video Upload
-// ======================================
-
-productVideo.addEventListener("change", async function () {
-  const file = productVideo.files[0];
-
-  if (!file) {
-    return;
-  }
-
-  if (!file.type.startsWith("video/")) {
-    alert("Please select a video file.");
-    productVideo.value = "";
-    return;
-  }
-
-  try {
-    const video = await readFile(file);
-
-    shopData.video = video;
-
-    saveData();
-    showVideo();
-  } catch (error) {
-    console.error(error);
-    alert("Could not upload video.");
-  }
-
-  productVideo.value = "";
-});
-
-
-// ======================================
-// Show Video
-// ======================================
-
-function showVideo() {
-  videoPreview.innerHTML = "";
-
-  if (!shopData.video) {
-    return;
-  }
-
-  const video = document.createElement("video");
-  video.src = shopData.video;
-  video.controls = true;
-  video.muted = true;
-  video.playsInline = true;
-
-  const deleteButton = document.createElement("button");
-  deleteButton.type = "button";
-  deleteButton.className = "delete-video";
-  deleteButton.textContent = "✕ Delete Video";
-
-  deleteButton.addEventListener("click", function () {
-    shopData.video = "";
-    saveData();
-    showVideo();
-  });
-
-  videoPreview.appendChild(video);
-  videoPreview.appendChild(deleteButton);
-}
-
-
-// ======================================
-// SAVE ALL CHANGES
-// ======================================
-
-saveBtn.addEventListener("click", function () {
-  shopData.shopName = shopName.value.trim();
-  shopData.heroTitle = heroTitle.value.trim();
-  shopData.heroText = heroText.value.trim();
-  shopData.footerText = footerText.value.trim();
-
-  shopData.productName = productName.value.trim();
-
-  shopData.oldPrice = Number(oldPrice.value) || 0;
-  shopData.newPrice = Number(newPrice.value) || 0;
-
-  shopData.description = description.value.trim();
-
-  shopData.whatsappNumber =
-    whatsappNumber.value.replace(/\D/g, "");
-
-  saveData();
-
-  saveMessage.textContent =
-    "✓ All changes saved successfully!";
-
-  saveMessage.style.color = "green";
-
-  setTimeout(function () {
-    saveMessage.textContent = "";
-  }, 3000);
-});
-
-
-// ======================================
-// LOGOUT
-// ======================================
-
-logoutBtn.addEventListener("click", function () {
-  sessionStorage.removeItem("raisaAdminLoggedIn");
-  window.location.href = "login.html";
-});
-
-
-// ======================================
-// Start
-// ======================================
-
-loadForm();
+      if (!file.type.startsWith("image/")) {
+        continue;
+      }
 ```
