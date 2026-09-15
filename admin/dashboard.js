@@ -27,7 +27,7 @@ newPrice.value = data.newPrice || "";
 description.value = data.description || "";
 whatsappNumber.value = data.whatsappNumber || "";
 
-saveBtn.onclick = function () {
+saveBtn.onclick = function() {
   data.shopName = shopName.value.trim();
   data.heroTitle = heroTitle.value.trim();
   data.heroText = heroText.value.trim();
@@ -41,10 +41,9 @@ saveBtn.onclick = function () {
   localStorage.setItem("raisaShopData", JSON.stringify(data));
 
   saveMessage.textContent = "✓ All changes saved successfully!";
-  saveMessage.style.color = "green";
 };
 
-logoutBtn.onclick = function () {
+logoutBtn.onclick = function() {
   sessionStorage.removeItem("raisaAdminLoggedIn");
   window.location.href = "login.html";
 };
