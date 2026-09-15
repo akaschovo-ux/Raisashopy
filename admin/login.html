@@ -4,9 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Raisa Shopy - Admin Login</title>
-
   <link rel="stylesheet" href="admin.css">
 </head>
 
@@ -24,12 +22,9 @@
         Admin Dashboard
       </p>
 
-
       <form id="loginForm">
 
-        <label for="email">
-          Admin Email
-        </label>
+        <label for="email">Admin Email</label>
 
         <input
           type="email"
@@ -38,10 +33,7 @@
           required
         >
 
-
-        <label for="password">
-          Password
-        </label>
+        <label for="password">Password</label>
 
         <input
           type="password"
@@ -50,7 +42,6 @@
           required
         >
 
-
         <button
           type="submit"
           class="login-btn"
@@ -58,14 +49,9 @@
           🔐 Login to Dashboard
         </button>
 
-
-        <p
-          id="loginMessage"
-          class="login-message"
-        ></p>
+        <p id="loginMessage" class="login-message"></p>
 
       </form>
-
 
       <a
         href="../index.html"
@@ -80,20 +66,11 @@
 
 
   <script>
-
-    const loginForm =
-      document.getElementById("loginForm");
-
-    const loginMessage =
-      document.getElementById("loginMessage");
-
-
-    loginForm.addEventListener(
-      "submit",
-      function(event) {
+    document
+      .getElementById("loginForm")
+      .addEventListener("submit", function(event) {
 
         event.preventDefault();
-
 
         const email =
           document.getElementById("email").value.trim();
@@ -101,28 +78,25 @@
         const password =
           document.getElementById("password").value;
 
+        const message =
+          document.getElementById("loginMessage");
 
         if (!email || !password) {
-
-          loginMessage.textContent =
+          message.textContent =
             "Please enter email and password.";
-
           return;
         }
-
 
         sessionStorage.setItem(
           "raisaAdminLoggedIn",
           "true"
         );
 
+        window.location.replace(
+          "./dashboard.html"
+        );
 
-        window.location.href =
-          "dashboard.html";
-
-      }
-    );
-
+      });
   </script>
 
 </body>
