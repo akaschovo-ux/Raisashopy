@@ -1,4 +1,4 @@
-```javascript
+
 if (sessionStorage.getItem("raisaAdminLoggedIn") !== "true") {
   window.location.href = "login.html";
 }
