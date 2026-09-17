@@ -1,1 +1,688 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0" > <meta name="description" content="Raisa Shopy - Quality Products At Special Prices" > <title>Raisa Shopy</title> <link rel="stylesheet" href="style.css"> </head> <body> <!-- ========================= HEADER ========================== --> <header class="header"> <div class="logo" id="shopName"> Raisa Shopy </div> </header> <!-- ========================= HERO ========================== --> <section class="hero"> <div class="hero-content"> <div class="welcome"> WELCOME TO </div> <h1 id="heroTitle"> Raisa Shopy </h1> <p id="heroText"> Quality Products At Special Prices </p> </div> </section> <!-- ========================= PRODUCT SECTION ========================== --> <main class="product-section"> <!-- ========================= PRODUCT GALLERY ========================== --> <div class="product-gallery"> <div class="main-image-box"> <img id="mainProductImage" src="" alt="Product Image" > </div> <div id="productThumbnails" class="product-thumbnails" ></div> </div> <!-- ========================= PRODUCT INFORMATION ========================== --> <div class="product-info"> <h2 id="productName"> Your Product </h2> <!-- PRICE --> <div class="price-area"> <span id="oldPrice" class="old-price" ></span> <span id="newPrice" class="new-price" > SAR 149.00 </span> <span id="discount" class="discount" ></span> </div> <!-- DESCRIPTION --> <div id="descriptionText" class="description" > Your product description will appear here. </div> <!-- DESCRIPTION IMAGES --> <div id="descriptionImages" class="description-images" ></div> <!-- ========================= PRODUCT VIDEO ========================== --> <div id="videoContainer" class="product-video" style="display:none;" > <video id="productVideo" controls muted playsinline ></video> </div> <!-- ========================= ORDER AREA ========================== --> <div class="order-area"> <h3> 🛒 Order Now </h3> <!-- CUSTOMER NAME --> <label for="customerName"> Your Name </label> <input type="text" id="customerName" placeholder="Enter your name" autocomplete="name" > <!-- PHONE --> <label for="customerPhone"> Phone Number </label> <input type="tel" id="customerPhone" placeholder="Enter your phone number" autocomplete="tel" > <!-- ADDRESS --> <label for="customerAddress"> Delivery Address </label> <textarea id="customerAddress" rows="4" placeholder="Enter your complete delivery address" autocomplete="street-address" ></textarea> <!-- QUANTITY --> <label> Quantity </label> <div class="quantity-box"> <button type="button" id="minusBtn" aria-label="Decrease quantity" > − </button> <input type="number" id="quantity" value="1" min="1" aria-label="Quantity" > <button type="button" id="plusBtn" aria-label="Increase quantity" > + </button> </div> <!-- TOTAL --> <div class="total-price"> <span> Total </span> <strong id="totalPrice"> SAR 149.00 </strong> </div> <!-- WHATSAPP ORDER --> <button type="button" id="orderNow" class="order-button" > <span style=" font-size:22px; vertical-align:middle; margin-right:7px; " > 💬 </span> Order on WhatsApp </button> </div> </div> </main> <!-- ========================= FOOTER ========================== --> <footer> <p id="footerText"> © Raisa Shopy </p> </footer> <!-- ========================= MAIN SCRIPT ========================== --> <script src="script.js"></script> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Raisa Shopy | Face and Neck Beauty Device</title>
+
+  <meta name="description" content="Raisa Shopy - Face and Neck Beauty Device with advanced LED therapy.">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">Raisa Shopy</div>
+
+    <a href="#order" class="header-order">
+      Order Now
+    </a>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <p class="hero-small">
+        BEAUTY • SKINCARE • LED THERAPY
+      </p>
+
+      <h1>
+        Face and Neck<br>
+        Beauty Device
+      </h1>
+
+      <p class="hero-text">
+        Revitalize your skin with advanced LED therapy.
+        Designed for your face, neck, chin and jawline.
+      </p>
+
+      <a href="#order" class="main-button">
+        Order Now
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- PRODUCT -->
+  <section class="product-section">
+
+    <div class="product-gallery">
+
+      <div class="main-image-box">
+        <img
+          id="mainProductImage"
+          src="https://via.placeholder.com/700x700?text=Raisa+Shopy"
+          alt="Face and Neck Beauty Device"
+        >
+      </div>
+
+      <div class="thumbnails">
+
+        <img
+          src="https://via.placeholder.com/150x150?text=Product+1"
+          onclick="changeMainImage(this.src)"
+          alt="Product image 1"
+        >
+
+        <img
+          src="https://via.placeholder.com/150x150?text=Product+2"
+          onclick="changeMainImage(this.src)"
+          alt="Product image 2"
+        >
+
+        <img
+          src="https://via.placeholder.com/150x150?text=Product+3"
+          onclick="changeMainImage(this.src)"
+          alt="Product image 3"
+        >
+
+        <img
+          src="https://via.placeholder.com/150x150?text=Product+4"
+          onclick="changeMainImage(this.src)"
+          alt="Product image 4"
+        >
+
+        <img
+          src="https://via.placeholder.com/150x150?text=Product+5"
+          onclick="changeMainImage(this.src)"
+          alt="Product image 5"
+        >
+
+        <img
+          src="https://via.placeholder.com/150x150?text=Product+6"
+          onclick="changeMainImage(this.src)"
+          alt="Product image 6"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="product-info">
+
+      <p class="product-label">
+        PREMIUM BEAUTY DEVICE
+      </p>
+
+      <h2>
+        Face and Neck Beauty Device
+      </h2>
+
+      <p class="tagline">
+        Revitalize your skin with advanced LED therapy.
+      </p>
+
+
+      <!-- PRICE -->
+      <div class="price-box">
+
+        <span class="old-price">
+          SAR 249
+        </span>
+
+        <span class="new-price">
+          SAR 179
+        </span>
+
+        <span class="discount">
+          28% OFF
+        </span>
+
+      </div>
+
+
+      <!-- DESCRIPTION -->
+      <div class="short-description">
+
+        <p>
+          Give your skin a refreshing beauty treatment from the comfort
+          of your home. This Face and Neck Beauty Device combines
+          massage technology with LED Photon Therapy.
+        </p>
+
+        <p>
+          Designed for the face, neck, chin and jawline, it can be used
+          as part of your regular skincare routine to help improve the
+          appearance of tired-looking skin.
+        </p>
+
+      </div>
+
+
+      <!-- QUANTITY -->
+      <div class="quantity-area">
+
+        <label>
+          Quantity
+        </label>
+
+        <div class="quantity-control">
+
+          <button type="button" onclick="decreaseQuantity()">
+            −
+          </button>
+
+          <span id="quantity">
+            1
+          </span>
+
+          <button type="button" onclick="increaseQuantity()">
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- TOTAL -->
+      <div class="total-box">
+
+        <span>
+          Total:
+        </span>
+
+        <strong id="totalPrice">
+          SAR 179
+        </strong>
+
+      </div>
+
+
+      <a href="#order" class="main-button product-button">
+        Order Now
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- FEATURES -->
+  <section class="features">
+
+    <div class="section-heading">
+
+      <p>
+        WHY CHOOSE IT
+      </p>
+
+      <h2>
+        Beauty Care Made Simple
+      </h2>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+      <div class="feature-card">
+
+        <div class="feature-icon">
+          ✨
+        </div>
+
+        <h3>
+          LED Photon Therapy
+        </h3>
+
+        <p>
+          Multiple LED light modes designed to complement
+          your daily skincare routine.
+        </p>
+
+      </div>
+
+
+      <div class="feature-card">
+
+        <div class="feature-icon">
+          💆
+        </div>
+
+        <h3>
+          Face & Neck Massage
+        </h3>
+
+        <p>
+          Designed for the face, neck, chin and jawline area.
+        </p>
+
+      </div>
+
+
+      <div class="feature-card">
+
+        <div class="feature-icon">
+          💎
+        </div>
+
+        <h3>
+          Easy To Use
+        </h3>
+
+        <p>
+          A simple beauty device for convenient home skincare.
+        </p>
+
+      </div>
+
+
+      <div class="feature-card">
+
+        <div class="feature-icon">
+          🌸
+        </div>
+
+        <h3>
+          Daily Beauty Routine
+        </h3>
+
+        <p>
+          Easily add it to your regular beauty and skincare routine.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FULL DESCRIPTION -->
+  <section class="description-section">
+
+    <div class="section-heading">
+
+      <p>
+        PRODUCT DETAILS
+      </p>
+
+      <h2>
+        Refresh Your Beauty Routine
+      </h2>
+
+    </div>
+
+
+    <div class="description-content">
+
+      <p>
+        The Face and Neck Beauty Device is designed to support a
+        relaxing and convenient skincare routine at home.
+      </p>
+
+      <p>
+        Its design allows you to focus on areas such as the face,
+        neck, chin and jawline while enjoying LED Photon Therapy.
+      </p>
+
+      <p>
+        The device features three LED therapy modes, including
+        blue light, allowing you to choose a mode according to
+        your preferred beauty routine.
+      </p>
+
+      <p>
+        Regular skincare combined with massage and LED therapy
+        can help your skin look refreshed and cared for.
+      </p>
+
+    </div>
+
+
+    <!-- DESCRIPTION IMAGES -->
+    <div class="description-images">
+
+      <div class="description-image">
+        <img
+          src="https://via.placeholder.com/800x600?text=Beauty+Device+Details+1"
+          alt="Beauty Device Details"
+        >
+      </div>
+
+      <div class="description-image">
+        <img
+          src="https://via.placeholder.com/800x600?text=Beauty+Device+Details+2"
+          alt="Beauty Device Details"
+        >
+      </div>
+
+      <div class="description-image">
+        <img
+          src="https://via.placeholder.com/800x600?text=Beauty+Device+Details+3"
+          alt="Beauty Device Details"
+        >
+      </div>
+
+      <div class="description-image">
+        <img
+          src="https://via.placeholder.com/800x600?text=Beauty+Device+Details+4"
+          alt="Beauty Device Details"
+        >
+      </div>
+
+      <div class="description-image">
+        <img
+          src="https://via.placeholder.com/800x600?text=Beauty+Device+Details+5"
+          alt="Beauty Device Details"
+        >
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- VIDEO -->
+  <section class="video-section">
+
+    <div class="section-heading">
+
+      <p>
+        SEE IT IN ACTION
+      </p>
+
+      <h2>
+        Product Video
+      </h2>
+
+    </div>
+
+    <div class="video-box">
+
+      <video
+        controls
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+      >
+
+        <source
+          src=""
+          type="video/mp4"
+        >
+
+        Your browser does not support video playback.
+
+      </video>
+
+    </div>
+
+  </section>
+
+
+  <!-- ORDER -->
+  <section class="order-section" id="order">
+
+    <div class="order-container">
+
+      <div class="order-heading">
+
+        <p>
+          FAST ORDER
+        </p>
+
+        <h2>
+          Order Your Beauty Device
+        </h2>
+
+        <span>
+          Fill in your details and send your order directly through WhatsApp.
+        </span>
+
+      </div>
+
+
+      <form id="orderForm">
+
+        <div class="form-group">
+
+          <label for="customerName">
+            Customer Name
+          </label>
+
+          <input
+            type="text"
+            id="customerName"
+            placeholder="Enter your name"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="customerPhone">
+            Customer Phone Number
+          </label>
+
+          <input
+            type="tel"
+            id="customerPhone"
+            placeholder="Enter your phone number"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="customerAddress">
+            Address
+          </label>
+
+          <textarea
+            id="customerAddress"
+            rows="4"
+            placeholder="Enter your complete address"
+            required
+          ></textarea>
+
+        </div>
+
+
+        <div class="order-summary">
+
+          <div>
+            <span>
+              Product
+            </span>
+
+            <strong>
+              Face and Neck Beauty Device
+            </strong>
+          </div>
+
+
+          <div>
+            <span>
+              Quantity
+            </span>
+
+            <strong id="orderQuantity">
+              1
+            </strong>
+          </div>
+
+
+          <div class="order-total">
+
+            <span>
+              Total
+            </span>
+
+            <strong id="orderTotal">
+              SAR 179
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="whatsapp-button"
+        >
+          Order via WhatsApp
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+
+    <div class="footer-logo">
+      Raisa Shopy
+    </div>
+
+    <p>
+      Premium beauty products for your everyday routine.
+    </p>
+
+    <p>
+      WhatsApp: +966 56 374 7461
+    </p>
+
+    <div class="copyright">
+      © 2026 Raisa Shopy. All rights reserved.
+    </div>
+
+  </footer>
+
+
+  <!-- JAVASCRIPT -->
+  <script>
+
+    let quantity = 1;
+
+    const productPrice = 179;
+
+    const whatsappNumber = "966563747461";
+
+
+    function updateQuantity() {
+
+      document.getElementById("quantity").textContent = quantity;
+
+      document.getElementById("orderQuantity").textContent = quantity;
+
+      document.getElementById("totalPrice").textContent =
+        "SAR " + (productPrice * quantity);
+
+      document.getElementById("orderTotal").textContent =
+        "SAR " + (productPrice * quantity);
+
+    }
+
+
+    function increaseQuantity() {
+
+      if (quantity < 3) {
+
+        quantity++;
+
+        updateQuantity();
+
+      }
+
+    }
+
+
+    function decreaseQuantity() {
+
+      if (quantity > 1) {
+
+        quantity--;
+
+        updateQuantity();
+
+      }
+
+    }
+
+
+    function changeMainImage(imageUrl) {
+
+      document.getElementById("mainProductImage").src = imageUrl;
+
+    }
+
+
+    document
+      .getElementById("orderForm")
+      .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        const name =
+          document.getElementById("customerName").value.trim();
+
+        const phone =
+          document.getElementById("customerPhone").value.trim();
+
+        const address =
+          document.getElementById("customerAddress").value.trim();
+
+
+        const total =
+          productPrice * quantity;
+
+
+        const message =
+          "🛍️ *New Order - Raisa Shopy*%0A%0A" +
+
+          "Product: Face and Neck Beauty Device%0A" +
+
+          "Quantity: " + quantity + "%0A" +
+
+          "Total: SAR " + total + "%0A%0A" +
+
+          "👤 Customer Name: " + encodeURIComponent(name) + "%0A" +
+
+          "📱 Phone: " + encodeURIComponent(phone) + "%0A" +
+
+          "📍 Address: " + encodeURIComponent(address);
+
+
+        const whatsappUrl =
+          "https://wa.me/" +
+          whatsappNumber +
+          "?text=" +
+          message;
+
+
+        window.open(
+          whatsappUrl,
+          "_blank"
+        );
+
+      });
+
+
+    updateQuantity();
+
+  </script>
+
+</body>
+</html>
