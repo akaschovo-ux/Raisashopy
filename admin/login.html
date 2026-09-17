@@ -1,4 +1,5 @@
-```html
+<!-- admin/login.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,95 +11,40 @@
 
 <body>
 
-  <div class="login-page">
-
-    <div class="login-card">
-
-      <div class="login-icon">🛍️</div>
+  <div class="login-container">
+    <div class="login-box">
 
       <h1>Raisa Shopy</h1>
-
-      <p class="login-subtitle">
-        Admin Dashboard
-      </p>
+      <p>Admin Login</p>
 
       <form id="loginForm">
 
-        <label for="email">Admin Email</label>
-
         <input
-          type="email"
-          id="email"
-          placeholder="Enter admin email"
+          type="text"
+          id="username"
+          placeholder="Username"
           required
         >
-
-        <label for="password">Password</label>
 
         <input
           type="password"
           id="password"
-          placeholder="Enter password"
+          placeholder="Password"
           required
         >
 
-        <button
-          type="submit"
-          class="login-btn"
-        >
-          🔐 Login to Dashboard
+        <button type="submit">
+          Login
         </button>
 
-        <p id="loginMessage" class="login-message"></p>
+        <p id="loginMessage"></p>
 
       </form>
 
-      <a
-        href="../index.html"
-        class="back-to-shop"
-      >
-        ← Back to Shop
-      </a>
-
     </div>
-
   </div>
 
-
-  <script>
-    document
-      .getElementById("loginForm")
-      .addEventListener("submit", function(event) {
-
-        event.preventDefault();
-
-        const email =
-          document.getElementById("email").value.trim();
-
-        const password =
-          document.getElementById("password").value;
-
-        const message =
-          document.getElementById("loginMessage");
-
-        if (!email || !password) {
-          message.textContent =
-            "Please enter email and password.";
-          return;
-        }
-
-        sessionStorage.setItem(
-          "raisaAdminLoggedIn",
-          "true"
-        );
-
-        window.location.replace(
-          "./dashboard.html"
-        );
-
-      });
-  </script>
+  <script src="admin.js"></script>
 
 </body>
 </html>
-```
