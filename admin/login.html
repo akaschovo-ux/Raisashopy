@@ -1,50 +1,104 @@
-<!-- admin/login.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Raisa Shopy - Admin Login</title>
+
+  <title>Raisa Shopy | Admin Login</title>
+
   <link rel="stylesheet" href="admin.css">
 </head>
 
 <body>
 
-  <div class="login-container">
-    <div class="login-box">
+  <div class="login-page">
+
+    <div class="login-card">
+
+      <div class="brand-icon">
+        ✦
+      </div>
 
       <h1>Raisa Shopy</h1>
-      <p>Admin Login</p>
+
+      <p class="welcome">Welcome back</p>
+      <p class="subtitle">Sign in to manage your store</p>
 
       <form id="loginForm">
 
-        <input
-          type="text"
-          id="username"
-          placeholder="Username"
-          required
-        >
+        <div class="input-group">
+          <label for="username">Username</label>
 
-        <input
-          type="password"
-          id="password"
-          placeholder="Password"
-          required
-        >
+          <div class="input-box">
+            <span>👤</span>
+            <input
+              type="text"
+              id="username"
+              placeholder="Enter username"
+              autocomplete="username"
+              required
+            >
+          </div>
+        </div>
 
-        <button type="submit">
-          Login
+        <div class="input-group">
+          <label for="password">Password</label>
+
+          <div class="input-box">
+            <span>🔒</span>
+
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter password"
+              autocomplete="current-password"
+              required
+            >
+
+            <button
+              type="button"
+              id="togglePassword"
+              class="show-password"
+            >
+              Show
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="login-button">
+          Login to Dashboard
         </button>
 
         <p id="loginMessage"></p>
 
       </form>
 
+      <div class="login-footer">
+        <span>Raisa Shopy</span>
+        <span>•</span>
+        <span>Admin Panel</span>
+      </div>
+
     </div>
+
   </div>
 
   <script src="admin.js"></script>
+
+  <script>
+    const passwordInput = document.getElementById("password");
+    const togglePassword = document.getElementById("togglePassword");
+
+    togglePassword.addEventListener("click", () => {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        togglePassword.textContent = "Hide";
+      } else {
+        passwordInput.type = "password";
+        togglePassword.textContent = "Show";
+      }
+    });
+  </script>
 
 </body>
 </html>
