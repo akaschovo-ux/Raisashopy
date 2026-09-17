@@ -1,5 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
+  // LOGIN CHECK
   if (localStorage.getItem("raisaAdminLoggedIn") !== "true") {
     window.location.href = "login.html";
     return;
@@ -20,27 +21,25 @@ document.addEventListener("DOMContentLoaded", () => {
     video: ""
   };
 
-  let shopData = { ...defaultData };
+  let data = { ...defaultData };
 
+  // LOAD SAVED DATA
   try {
     const saved = localStorage.getItem("raisaShopData");
 
     if (saved) {
-      shopData = {
+      data = {
         ...defaultData,
         ...JSON.parse(saved)
       };
     }
   } catch (error) {
-    console.error(error);
+    console.log("Load error:", error);
   }
 
 
-  // =========================
-  // LOAD TEXT DATA
-  // =========================
-
-  const fields = [
+  // TEXT FIELDS
+  const textFields = [
     "shopName",
     "heroTitle",
     "heroText",
@@ -52,182 +51,181 @@ document.addEventListener("DOMContentLoaded", () => {
     "footerText"
   ];
 
-  fields.forEach((id) => {
-    const element = document.getElementById(id);
+  textFields.forEach(function (id) {
 
-    if (element && shopData[id] !== undefined) {
-      element.value = shopData[id];
+    const input = document.getElementById(id);
+
+    if (input) {
+      input.value = data[id] ?? "";
     }
+
   });
 
 
-  // =========================
-  // FILE TO BASE64
-  // =========================
+  // FILE READER
+  function readFile(file) {
 
-  function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-
-      if (!file) {
-        resolve(null);
-        return;
-      }
+    return new Promise(function (resolve, reject) {
 
       const reader = new FileReader();
 
-      reader.onload = () => resolve(reader.result);
+      reader.onload = function () {
+        resolve(reader.result);
+      };
 
-      reader.onerror = () =>
-        reject(new Error("File could not be read."));
+      reader.onerror = function () {
+        reject(new Error("File reading failed"));
+      };
 
       reader.readAsDataURL(file);
+
     });
+
   }
 
 
-  // =========================
   // SAVE BUTTON
-  // =========================
-
   const saveBtn = document.getElementById("saveBtn");
   const saveMessage = document.getElementById("saveMessage");
 
-  if (saveBtn) {
-
-    saveBtn.addEventListener("click", async () => {
-
-      saveBtn.disabled = true;
-      saveBtn.textContent = "Saving...";
-
-      try {
-
-        // TEXT DATA
-
-        fields.forEach((id) => {
-
-          const element = document.getElementById(id);
-
-          if (element) {
-            shopData[id] = element.value.trim();
-          }
-
-        });
-
-
-        // PRODUCT IMAGES
-
-        const productImages = [
-          ...shopData.productImages
-        ];
-
-        for (let i = 1; i <= 6; i++) {
-
-          const input =
-            document.getElementById(`productImage${i}`);
-
-          if (input && input.files && input.files[0]) {
-
-            productImages[i - 1] =
-              await fileToBase64(input.files[0]);
-          }
-        }
-
-        shopData.productImages =
-          productImages.filter(Boolean);
-
-
-        // DESCRIPTION IMAGES
-
-        const descriptionImages = [
-          ...shopData.descriptionImages
-        ];
-
-        for (let i = 1; i <= 5; i++) {
-
-          const input =
-            document.getElementById(`descriptionImage${i}`);
-
-          if (input && input.files && input.files[0]) {
-
-            descriptionImages[i - 1] =
-              await fileToBase64(input.files[0]);
-          }
-        }
-
-        shopData.descriptionImages =
-          descriptionImages.filter(Boolean);
-
-
-        // VIDEO
-
-        const videoInput =
-          document.getElementById("productVideo");
-
-        if (
-          videoInput &&
-          videoInput.files &&
-          videoInput.files[0]
-        ) {
-
-          shopData.video =
-            await fileToBase64(videoInput.files[0]);
-        }
-
-
-        // SAVE TO LOCAL STORAGE
-
-        localStorage.setItem(
-          "raisaShopData",
-          JSON.stringify(shopData)
-        );
-
-
-        // SUCCESS
-
-        if (saveMessage) {
-          saveMessage.textContent =
-            "✓ All changes saved successfully!";
-          saveMessage.style.color = "#16803c";
-        }
-
-        saveBtn.textContent = "Saved ✓";
-
-        setTimeout(() => {
-          saveBtn.textContent = "Save All Changes";
-          saveBtn.disabled = false;
-        }, 2000);
-
-      } catch (error) {
-
-        console.error(error);
-
-        if (saveMessage) {
-          saveMessage.textContent =
-            "Unable to save. The selected file may be too large.";
-          saveMessage.style.color = "#d00000";
-        }
-
-        saveBtn.textContent = "Save All Changes";
-        saveBtn.disabled = false;
-      }
-
-    });
-
+  if (!saveBtn) {
+    alert("Save button not found!");
+    return;
   }
 
 
-  // =========================
-  // LOGOUT
-  // =========================
+  saveBtn.addEventListener("click", async function () {
 
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Saving...";
+
+    try {
+
+      // GET TEXT DATA
+      textFields.forEach(function (id) {
+
+        const input = document.getElementById(id);
+
+        if (input) {
+          data[id] = input.value;
+        }
+
+      });
+
+
+      // PRODUCT IMAGES
+      data.productImages = data.productImages || [];
+
+      for (let i = 1; i <= 6; i++) {
+
+        const input =
+          document.getElementById("productImage" + i);
+
+        if (input && input.files.length > 0) {
+
+          const file = input.files[0];
+
+          data.productImages[i - 1] =
+            await readFile(file);
+        }
+
+      }
+
+
+      // DESCRIPTION IMAGES
+      data.descriptionImages =
+        data.descriptionImages || [];
+
+      for (let i = 1; i <= 5; i++) {
+
+        const input =
+          document.getElementById("descriptionImage" + i);
+
+        if (input && input.files.length > 0) {
+
+          const file = input.files[0];
+
+          data.descriptionImages[i - 1] =
+            await readFile(file);
+        }
+
+      }
+
+
+      // VIDEO
+      const videoInput =
+        document.getElementById("productVideo");
+
+      if (
+        videoInput &&
+        videoInput.files &&
+        videoInput.files.length > 0
+      ) {
+
+        data.video =
+          await readFile(videoInput.files[0]);
+
+      }
+
+
+      // SAVE
+      localStorage.setItem(
+        "raisaShopData",
+        JSON.stringify(data)
+      );
+
+
+      // SUCCESS
+      saveBtn.disabled = false;
+      saveBtn.textContent = "Saved ✓";
+
+      if (saveMessage) {
+        saveMessage.textContent =
+          "✓ Changes saved successfully!";
+        saveMessage.style.color = "#16803c";
+      }
+
+      alert("Changes saved successfully!");
+
+
+      setTimeout(function () {
+        saveBtn.textContent = "Save All Changes";
+      }, 2000);
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      saveBtn.disabled = false;
+      saveBtn.textContent = "Save All Changes";
+
+      if (saveMessage) {
+        saveMessage.textContent =
+          "Save failed. The file may be too large.";
+        saveMessage.style.color = "#d00000";
+      }
+
+      alert(
+        "Save failed. Try a smaller image/video."
+      );
+
+    }
+
+  });
+
+
+  // LOGOUT
   const logoutBtn =
     document.getElementById("logoutBtn");
 
   if (logoutBtn) {
 
-    logoutBtn.addEventListener("click", () => {
+    logoutBtn.addEventListener("click", function () {
 
-      localStorage.removeItem("raisaAdminLoggedIn");
+      localStorage.removeItem(
+        "raisaAdminLoggedIn"
+      );
 
       window.location.href = "login.html";
 
