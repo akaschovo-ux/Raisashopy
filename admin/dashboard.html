@@ -1,11 +1,10 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Raisa Shopy - Admin Dashboard</title>
+  <title>Raisa Shopy | Dashboard</title>
 
   <link rel="stylesheet" href="admin.css">
 </head>
@@ -14,12 +13,16 @@
 
   <div class="dashboard">
 
-    <!-- HEADER -->
+    <!-- TOP BAR -->
     <header class="dashboard-header">
 
-      <div>
-        <h1>Raisa Shopy</h1>
-        <p>Admin Dashboard</p>
+      <div class="brand-area">
+        <div class="brand-small">R</div>
+
+        <div>
+          <h1>Raisa Shopy</h1>
+          <p>Store Management</p>
+        </div>
       </div>
 
       <button id="logoutBtn" class="logout-btn">
@@ -29,75 +32,133 @@
     </header>
 
 
+    <!-- MAIN -->
     <main class="dashboard-content">
+
+      <div class="page-heading">
+        <span class="eyebrow">ADMIN PANEL</span>
+
+        <h2>Store Dashboard</h2>
+
+        <p>
+          Manage your shop, product information and media.
+        </p>
+      </div>
+
 
       <!-- SHOP SETTINGS -->
       <section class="admin-card">
 
-        <h2>Shop Settings</h2>
+        <div class="card-heading">
+          <div class="card-number">01</div>
 
-        <label>Shop Name</label>
-        <input
-          type="text"
-          id="shopName"
-          placeholder="Raisa Shopy"
-        >
+          <div>
+            <h3>Shop Information</h3>
+            <p>Update your store name and homepage text.</p>
+          </div>
+        </div>
 
-        <label>Hero Title</label>
-        <input
-          type="text"
-          id="heroTitle"
-          placeholder="Face and Neck Beauty Device"
-        >
+        <div class="form-grid">
 
-        <label>Hero Text</label>
-        <textarea
-          id="heroText"
-          placeholder="Revitalize your skin with advanced LED therapy"
-        ></textarea>
+          <div class="field">
+            <label for="shopName">Shop Name</label>
+
+            <input
+              type="text"
+              id="shopName"
+              placeholder="Raisa Shopy"
+            >
+          </div>
+
+          <div class="field">
+            <label for="whatsappNumber">WhatsApp Number</label>
+
+            <input
+              type="text"
+              id="whatsappNumber"
+              placeholder="+966 56 374 7461"
+            >
+          </div>
+
+        </div>
+
+        <div class="field">
+          <label for="heroTitle">Hero Title</label>
+
+          <input
+            type="text"
+            id="heroTitle"
+            placeholder="Face and Neck Beauty Device"
+          >
+        </div>
+
+        <div class="field">
+          <label for="heroText">Hero Subtitle</label>
+
+          <input
+            type="text"
+            id="heroText"
+            placeholder="Revitalize your skin with advanced LED therapy"
+          >
+        </div>
 
       </section>
 
 
-      <!-- PRODUCT SETTINGS -->
+      <!-- PRODUCT -->
       <section class="admin-card">
 
-        <h2>Product Settings</h2>
+        <div class="card-heading">
+          <div class="card-number">02</div>
 
-        <label>Product Name</label>
-        <input
-          type="text"
-          id="productName"
-          placeholder="Face and Neck Beauty Device"
-        >
+          <div>
+            <h3>Product Details</h3>
+            <p>Manage your product name, price and description.</p>
+          </div>
+        </div>
 
-        <label>Old Price (SAR)</label>
-        <input
-          type="number"
-          id="oldPrice"
-          placeholder="249"
-        >
+        <div class="field">
+          <label for="productName">Product Name</label>
 
-        <label>New Price (SAR)</label>
-        <input
-          type="number"
-          id="newPrice"
-          placeholder="179"
-        >
+          <input
+            type="text"
+            id="productName"
+            placeholder="Face and Neck Beauty Device"
+          >
+        </div>
 
-        <label>Product Description</label>
-        <textarea
-          id="description"
-          rows="8"
-          placeholder="Product description"
-        ></textarea>
+        <div class="form-grid">
 
-        <label>WhatsApp Number</label>
-        <input
-          type="text"
-          id="whatsappNumber"
-          placeholder="+966 56 374 7461"
-        >
+          <div class="field">
+            <label for="oldPrice">Old Price (SAR)</label>
+
+            <input
+              type="number"
+              id="oldPrice"
+              placeholder="249"
+            >
+          </div>
+
+          <div class="field">
+            <label for="newPrice">New Price (SAR)</label>
+
+            <input
+              type="number"
+              id="newPrice"
+              placeholder="179"
+            >
+          </div>
+
+        </div>
+
+        <div class="field">
+          <label for="description">Product Description</label>
+
+          <textarea
+            id="description"
+            placeholder="Write your product description..."
+          ></textarea>
+        </div>
 
       </section>
 
@@ -105,53 +166,54 @@
       <!-- PRODUCT IMAGES -->
       <section class="admin-card">
 
-        <h2>Product Images</h2>
+        <div class="card-heading">
+          <div class="card-number">03</div>
 
-        <p class="help-text">
-          Upload up to 6 product images.
-        </p>
+          <div>
+            <h3>Product Gallery</h3>
+            <p>Upload up to 6 product images.</p>
+          </div>
+        </div>
 
-        <label>Product Image 1</label>
-        <input
-          type="file"
-          id="productImage1"
-          accept="image/*"
-        >
+        <div class="upload-grid">
 
-        <label>Product Image 2</label>
-        <input
-          type="file"
-          id="productImage2"
-          accept="image/*"
-        >
+          <div class="upload-item">
+            <span>01</span>
+            <label for="productImage1">Product Image 1</label>
+            <input type="file" id="productImage1" accept="image/*">
+          </div>
 
-        <label>Product Image 3</label>
-        <input
-          type="file"
-          id="productImage3"
-          accept="image/*"
-        >
+          <div class="upload-item">
+            <span>02</span>
+            <label for="productImage2">Product Image 2</label>
+            <input type="file" id="productImage2" accept="image/*">
+          </div>
 
-        <label>Product Image 4</label>
-        <input
-          type="file"
-          id="productImage4"
-          accept="image/*"
-        >
+          <div class="upload-item">
+            <span>03</span>
+            <label for="productImage3">Product Image 3</label>
+            <input type="file" id="productImage3" accept="image/*">
+          </div>
 
-        <label>Product Image 5</label>
-        <input
-          type="file"
-          id="productImage5"
-          accept="image/*"
-        >
+          <div class="upload-item">
+            <span>04</span>
+            <label for="productImage4">Product Image 4</label>
+            <input type="file" id="productImage4" accept="image/*">
+          </div>
 
-        <label>Product Image 6</label>
-        <input
-          type="file"
-          id="productImage6"
-          accept="image/*"
-        >
+          <div class="upload-item">
+            <span>05</span>
+            <label for="productImage5">Product Image 5</label>
+            <input type="file" id="productImage5" accept="image/*">
+          </div>
+
+          <div class="upload-item">
+            <span>06</span>
+            <label for="productImage6">Product Image 6</label>
+            <input type="file" id="productImage6" accept="image/*">
+          </div>
+
+        </div>
 
       </section>
 
@@ -159,46 +221,48 @@
       <!-- DESCRIPTION IMAGES -->
       <section class="admin-card">
 
-        <h2>Description Images</h2>
+        <div class="card-heading">
+          <div class="card-number">04</div>
 
-        <p class="help-text">
-          Upload up to 5 description images.
-        </p>
+          <div>
+            <h3>Description Images</h3>
+            <p>Upload up to 5 images for your product description.</p>
+          </div>
+        </div>
 
-        <label>Description Image 1</label>
-        <input
-          type="file"
-          id="descriptionImage1"
-          accept="image/*"
-        >
+        <div class="upload-grid">
 
-        <label>Description Image 2</label>
-        <input
-          type="file"
-          id="descriptionImage2"
-          accept="image/*"
-        >
+          <div class="upload-item">
+            <span>01</span>
+            <label for="descriptionImage1">Description Image 1</label>
+            <input type="file" id="descriptionImage1" accept="image/*">
+          </div>
 
-        <label>Description Image 3</label>
-        <input
-          type="file"
-          id="descriptionImage3"
-          accept="image/*"
-        >
+          <div class="upload-item">
+            <span>02</span>
+            <label for="descriptionImage2">Description Image 2</label>
+            <input type="file" id="descriptionImage2" accept="image/*">
+          </div>
 
-        <label>Description Image 4</label>
-        <input
-          type="file"
-          id="descriptionImage4"
-          accept="image/*"
-        >
+          <div class="upload-item">
+            <span>03</span>
+            <label for="descriptionImage3">Description Image 3</label>
+            <input type="file" id="descriptionImage3" accept="image/*">
+          </div>
 
-        <label>Description Image 5</label>
-        <input
-          type="file"
-          id="descriptionImage5"
-          accept="image/*"
-        >
+          <div class="upload-item">
+            <span>04</span>
+            <label for="descriptionImage4">Description Image 4</label>
+            <input type="file" id="descriptionImage4" accept="image/*">
+          </div>
+
+          <div class="upload-item">
+            <span>05</span>
+            <label for="descriptionImage5">Description Image 5</label>
+            <input type="file" id="descriptionImage5" accept="image/*">
+          </div>
+
+        </div>
 
       </section>
 
@@ -206,17 +270,32 @@
       <!-- VIDEO -->
       <section class="admin-card">
 
-        <h2>Product Video</h2>
+        <div class="card-heading">
+          <div class="card-number">05</div>
 
-        <p class="help-text">
-          Upload your product video.
-        </p>
+          <div>
+            <h3>Product Video</h3>
+            <p>Add a product demonstration video.</p>
+          </div>
+        </div>
 
-        <input
-          type="file"
-          id="productVideo"
-          accept="video/mp4,video/webm,video/quicktime"
-        >
+        <div class="video-upload">
+
+          <label for="productVideo">
+            Product Video
+          </label>
+
+          <input
+            type="file"
+            id="productVideo"
+            accept="video/*"
+          >
+
+          <small>
+            MP4 video is recommended.
+          </small>
+
+        </div>
 
       </section>
 
@@ -224,41 +303,59 @@
       <!-- FOOTER -->
       <section class="admin-card">
 
-        <h2>Footer</h2>
+        <div class="card-heading">
+          <div class="card-number">06</div>
 
-        <label>Footer Text</label>
+          <div>
+            <h3>Footer</h3>
+            <p>Update the text shown at the bottom of your website.</p>
+          </div>
+        </div>
 
-        <input
-          type="text"
-          id="footerText"
-          placeholder="© 2026 Raisa Shopy. All Rights Reserved."
-        >
+        <div class="field">
+
+          <label for="footerText">
+            Footer Text
+          </label>
+
+          <input
+            type="text"
+            id="footerText"
+            placeholder="Premium beauty products from Raisa Shopy."
+          >
+
+        </div>
 
       </section>
 
 
       <!-- SAVE -->
-      <section class="admin-card save-card">
+      <section class="save-card">
+
+        <div>
+          <strong>Ready to publish?</strong>
+
+          <p>
+            Save your changes to update your store.
+          </p>
+        </div>
 
         <button
           id="saveBtn"
           class="save-btn"
-          type="button"
         >
           Save All Changes
         </button>
 
-        <p id="saveMessage"></p>
-
       </section>
+
+      <p id="saveMessage"></p>
 
     </main>
 
   </div>
 
-
   <script src="dashboard.js"></script>
 
 </body>
 </html>
-```
