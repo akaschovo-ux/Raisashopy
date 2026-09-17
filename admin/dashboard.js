@@ -1,392 +1,238 @@
-```javascript id="p8n4k2"
-// admin/dashboard.js
-
 document.addEventListener("DOMContentLoaded", () => {
-
-  // ================================
-  // CHECK ADMIN LOGIN
-  // ================================
 
   if (localStorage.getItem("raisaAdminLoggedIn") !== "true") {
     window.location.href = "login.html";
     return;
   }
 
-
-  // ================================
-  // DEFAULT DATA
-  // ================================
-
   const defaultData = {
     shopName: "Raisa Shopy",
-
     heroTitle: "Face and Neck Beauty Device",
-
-    heroText:
-      "Revitalize your skin with advanced LED therapy",
-
-    productName:
-      "Face and Neck Beauty Device",
-
+    heroText: "Revitalize your skin with advanced LED therapy",
+    productName: "Face and Neck Beauty Device",
     oldPrice: 249,
-
     newPrice: 179,
-
-    description:
-      "Revitalize your skin with our advanced LED Face and Neck Beauty Device. Designed to massage, smooth and tighten the face, neck, chin and jawline.",
-
-    whatsappNumber:
-      "+966563747461",
-
+    description: "Advanced LED face and neck massager designed to help lift, smooth and tighten the skin.",
+    whatsappNumber: "+966 56 374 7461",
+    footerText: "Premium beauty products from Raisa Shopy.",
     productImages: [],
-
     descriptionImages: [],
-
-    video: "",
-
-    footerText:
-      "© 2026 Raisa Shopy. All Rights Reserved."
+    video: ""
   };
 
-
-  // ================================
-  // LOAD SAVED DATA
-  // ================================
-
-  let shopData;
+  let shopData = { ...defaultData };
 
   try {
+    const saved = localStorage.getItem("raisaShopData");
 
-    shopData =
-      JSON.parse(
-        localStorage.getItem("raisaShopData")
-      ) || defaultData;
-
+    if (saved) {
+      shopData = {
+        ...defaultData,
+        ...JSON.parse(saved)
+      };
+    }
   } catch (error) {
-
-    shopData = defaultData;
-
+    console.error(error);
   }
 
 
-  // ================================
-  // LOAD TEXT SETTINGS
-  // ================================
+  // =========================
+  // LOAD TEXT DATA
+  // =========================
 
-  document.getElementById("shopName").value =
-    shopData.shopName || "";
+  const fields = [
+    "shopName",
+    "heroTitle",
+    "heroText",
+    "productName",
+    "oldPrice",
+    "newPrice",
+    "description",
+    "whatsappNumber",
+    "footerText"
+  ];
 
-  document.getElementById("heroTitle").value =
-    shopData.heroTitle || "";
+  fields.forEach((id) => {
+    const element = document.getElementById(id);
 
-  document.getElementById("heroText").value =
-    shopData.heroText || "";
-
-  document.getElementById("productName").value =
-    shopData.productName || "";
-
-  document.getElementById("oldPrice").value =
-    shopData.oldPrice || "";
-
-  document.getElementById("newPrice").value =
-    shopData.newPrice || "";
-
-  document.getElementById("description").value =
-    shopData.description || "";
-
-  document.getElementById("whatsappNumber").value =
-    shopData.whatsappNumber || "";
-
-  document.getElementById("footerText").value =
-    shopData.footerText || "";
+    if (element && shopData[id] !== undefined) {
+      element.value = shopData[id];
+    }
+  });
 
 
-  // ================================
-  // IMAGE TO BASE64
-  // ================================
+  // =========================
+  // FILE TO BASE64
+  // =========================
 
   function fileToBase64(file) {
-
     return new Promise((resolve, reject) => {
+
+      if (!file) {
+        resolve(null);
+        return;
+      }
 
       const reader = new FileReader();
 
-      reader.onload = () => {
-        resolve(reader.result);
-      };
+      reader.onload = () => resolve(reader.result);
 
-      reader.onerror = reject;
+      reader.onerror = () =>
+        reject(new Error("File could not be read."));
 
       reader.readAsDataURL(file);
-
     });
-
   }
 
 
-  // ================================
-  // GET IMAGE FILES
-  // ================================
+  // =========================
+  // SAVE BUTTON
+  // =========================
 
-  async function getUploadedImages() {
+  const saveBtn = document.getElementById("saveBtn");
+  const saveMessage = document.getElementById("saveMessage");
 
-    const images = [];
+  if (saveBtn) {
 
-    for (let i = 1; i <= 6; i++) {
+    saveBtn.addEventListener("click", async () => {
 
-      const input =
-        document.getElementById(
-          `productImage${i}`
-        );
-
-      if (
-        input &&
-        input.files &&
-        input.files[0]
-      ) {
-
-        const image =
-          await fileToBase64(
-            input.files[0]
-          );
-
-        images.push(image);
-
-      } else if (
-        shopData.productImages &&
-        shopData.productImages[i - 1]
-      ) {
-
-        images.push(
-          shopData.productImages[i - 1]
-        );
-
-      }
-
-    }
-
-    return images;
-  }
-
-
-  // ================================
-  // GET DESCRIPTION IMAGES
-  // ================================
-
-  async function getDescriptionImages() {
-
-    const images = [];
-
-    for (let i = 1; i <= 5; i++) {
-
-      const input =
-        document.getElementById(
-          `descriptionImage${i}`
-        );
-
-      if (
-        input &&
-        input.files &&
-        input.files[0]
-      ) {
-
-        const image =
-          await fileToBase64(
-            input.files[0]
-          );
-
-        images.push(image);
-
-      } else if (
-        shopData.descriptionImages &&
-        shopData.descriptionImages[i - 1]
-      ) {
-
-        images.push(
-          shopData.descriptionImages[i - 1]
-        );
-
-      }
-
-    }
-
-    return images;
-  }
-
-
-  // ================================
-  // GET VIDEO
-  // ================================
-
-  async function getVideo() {
-
-    const videoInput =
-      document.getElementById(
-        "productVideo"
-      );
-
-    if (
-      videoInput &&
-      videoInput.files &&
-      videoInput.files[0]
-    ) {
-
-      return await fileToBase64(
-        videoInput.files[0]
-      );
-
-    }
-
-    return shopData.video || "";
-
-  }
-
-
-  // ================================
-  // SAVE ALL CHANGES
-  // ================================
-
-  document
-    .getElementById("saveBtn")
-    .addEventListener("click", async () => {
-
-      const saveMessage =
-        document.getElementById(
-          "saveMessage"
-        );
-
-      saveMessage.textContent =
-        "Saving...";
-
+      saveBtn.disabled = true;
+      saveBtn.textContent = "Saving...";
 
       try {
 
-        const productImages =
-          await getUploadedImages();
+        // TEXT DATA
 
-        const descriptionImages =
-          await getDescriptionImages();
+        fields.forEach((id) => {
 
-        const video =
-          await getVideo();
+          const element = document.getElementById(id);
 
+          if (element) {
+            shopData[id] = element.value.trim();
+          }
 
-        const updatedData = {
-
-          shopName:
-            document.getElementById(
-              "shopName"
-            ).value.trim(),
-
-          heroTitle:
-            document.getElementById(
-              "heroTitle"
-            ).value.trim(),
-
-          heroText:
-            document.getElementById(
-              "heroText"
-            ).value.trim(),
-
-          productName:
-            document.getElementById(
-              "productName"
-            ).value.trim(),
-
-          oldPrice:
-            Number(
-              document.getElementById(
-                "oldPrice"
-              ).value
-            ),
-
-          newPrice:
-            Number(
-              document.getElementById(
-                "newPrice"
-              ).value
-            ),
-
-          description:
-            document.getElementById(
-              "description"
-            ).value.trim(),
-
-          whatsappNumber:
-            document.getElementById(
-              "whatsappNumber"
-            ).value.trim(),
-
-          productImages:
-            productImages,
-
-          descriptionImages:
-            descriptionImages,
-
-          video:
-            video,
-
-          footerText:
-            document.getElementById(
-              "footerText"
-            ).value.trim()
-
-        };
+        });
 
 
-        // Save to browser
+        // PRODUCT IMAGES
+
+        const productImages = [
+          ...shopData.productImages
+        ];
+
+        for (let i = 1; i <= 6; i++) {
+
+          const input =
+            document.getElementById(`productImage${i}`);
+
+          if (input && input.files && input.files[0]) {
+
+            productImages[i - 1] =
+              await fileToBase64(input.files[0]);
+          }
+        }
+
+        shopData.productImages =
+          productImages.filter(Boolean);
+
+
+        // DESCRIPTION IMAGES
+
+        const descriptionImages = [
+          ...shopData.descriptionImages
+        ];
+
+        for (let i = 1; i <= 5; i++) {
+
+          const input =
+            document.getElementById(`descriptionImage${i}`);
+
+          if (input && input.files && input.files[0]) {
+
+            descriptionImages[i - 1] =
+              await fileToBase64(input.files[0]);
+          }
+        }
+
+        shopData.descriptionImages =
+          descriptionImages.filter(Boolean);
+
+
+        // VIDEO
+
+        const videoInput =
+          document.getElementById("productVideo");
+
+        if (
+          videoInput &&
+          videoInput.files &&
+          videoInput.files[0]
+        ) {
+
+          shopData.video =
+            await fileToBase64(videoInput.files[0]);
+        }
+
+
+        // SAVE TO LOCAL STORAGE
+
         localStorage.setItem(
           "raisaShopData",
-          JSON.stringify(
-            updatedData
-          )
+          JSON.stringify(shopData)
         );
 
 
-        // Update current data
-        shopData =
-          updatedData;
+        // SUCCESS
 
+        if (saveMessage) {
+          saveMessage.textContent =
+            "✓ All changes saved successfully!";
+          saveMessage.style.color = "#16803c";
+        }
 
-        saveMessage.textContent =
-          "✓ All changes saved successfully!";
+        saveBtn.textContent = "Saved ✓";
 
+        setTimeout(() => {
+          saveBtn.textContent = "Save All Changes";
+          saveBtn.disabled = false;
+        }, 2000);
 
       } catch (error) {
 
         console.error(error);
 
-        saveMessage.textContent =
-          "Error saving changes. Please try again.";
+        if (saveMessage) {
+          saveMessage.textContent =
+            "Unable to save. The selected file may be too large.";
+          saveMessage.style.color = "#d00000";
+        }
 
+        saveBtn.textContent = "Save All Changes";
+        saveBtn.disabled = false;
       }
 
-
-      setTimeout(() => {
-
-        saveMessage.textContent = "";
-
-      }, 4000);
-
     });
 
+  }
 
-  // ================================
+
+  // =========================
   // LOGOUT
-  // ================================
+  // =========================
 
-  document
-    .getElementById("logoutBtn")
-    .addEventListener("click", () => {
+  const logoutBtn =
+    document.getElementById("logoutBtn");
 
-      localStorage.removeItem(
-        "raisaAdminLoggedIn"
-      );
+  if (logoutBtn) {
 
-      window.location.href =
-        "login.html";
+    logoutBtn.addEventListener("click", () => {
+
+      localStorage.removeItem("raisaAdminLoggedIn");
+
+      window.location.href = "login.html";
 
     });
+
+  }
 
 });
-```
