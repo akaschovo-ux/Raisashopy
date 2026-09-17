@@ -11,18 +11,19 @@
 
 <body>
 
-  <div class="login-page">
+  <main class="login-page">
 
-    <div class="login-card">
+    <section class="login-card">
 
-      <div class="brand-icon">
-        ✦
-      </div>
+      <div class="brand-icon">R</div>
 
       <h1>Raisa Shopy</h1>
 
       <p class="welcome">Welcome back</p>
-      <p class="subtitle">Sign in to manage your store</p>
+
+      <p class="subtitle">
+        Sign in to manage your store
+      </p>
 
       <form id="loginForm">
 
@@ -30,7 +31,8 @@
           <label for="username">Username</label>
 
           <div class="input-box">
-            <span>👤</span>
+            <span>◉</span>
+
             <input
               type="text"
               id="username"
@@ -45,7 +47,7 @@
           <label for="password">Password</label>
 
           <div class="input-box">
-            <span>🔒</span>
+            <span>●</span>
 
             <input
               type="password"
@@ -65,7 +67,10 @@
           </div>
         </div>
 
-        <button type="submit" class="login-button">
+        <button
+          type="submit"
+          class="login-button"
+        >
           Login to Dashboard
         </button>
 
@@ -79,25 +84,38 @@
         <span>Admin Panel</span>
       </div>
 
-    </div>
+    </section>
 
-  </div>
+  </main>
 
   <script src="admin.js"></script>
 
   <script>
-    const passwordInput = document.getElementById("password");
-    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput =
+      document.getElementById("password");
 
-    togglePassword.addEventListener("click", () => {
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        togglePassword.textContent = "Hide";
-      } else {
-        passwordInput.type = "password";
-        togglePassword.textContent = "Show";
-      }
-    });
+    const togglePassword =
+      document.getElementById("togglePassword");
+
+    if (togglePassword && passwordInput) {
+
+      togglePassword.addEventListener("click", () => {
+
+        if (passwordInput.type === "password") {
+
+          passwordInput.type = "text";
+          togglePassword.textContent = "Hide";
+
+        } else {
+
+          passwordInput.type = "password";
+          togglePassword.textContent = "Show";
+
+        }
+
+      });
+
+    }
   </script>
 
 </body>
