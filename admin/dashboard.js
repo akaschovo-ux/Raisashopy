@@ -1,93 +1,392 @@
-<!-- admin/dashboard.html -->
+```javascript id="p8n4k2"
+// admin/dashboard.js
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+document.addEventListener("DOMContentLoaded", () => {
 
-  <title>Raisa Shopy - Admin Dashboard</title>
+  // ================================
+  // CHECK ADMIN LOGIN
+  // ================================
 
-  <link rel="stylesheet" href="admin.css">
-</head>
+  if (localStorage.getItem("raisaAdminLoggedIn") !== "true") {
+    window.location.href = "login.html";
+    return;
+  }
 
-<body>
 
-  <div class="dashboard">
+  // ================================
+  // DEFAULT DATA
+  // ================================
 
-    <header class="dashboard-header">
-      <div>
-        <h1>Raisa Shopy</h1>
-        <p>Admin Dashboard</p>
-      </div>
+  const defaultData = {
+    shopName: "Raisa Shopy",
 
-      <button id="logoutBtn" class="logout-btn">
-        Logout
-      </button>
-    </header>
+    heroTitle: "Face and Neck Beauty Device",
 
-    <main class="dashboard-content">
+    heroText:
+      "Revitalize your skin with advanced LED therapy",
 
-      <section class="admin-card">
+    productName:
+      "Face and Neck Beauty Device",
 
-        <h2>Shop Settings</h2>
+    oldPrice: 249,
 
-        <label>Shop Name</label>
-        <input type="text" id="shopName" placeholder="Raisa Shopy">
+    newPrice: 179,
 
-        <label>Hero Title</label>
-        <input type="text" id="heroTitle" placeholder="Your main title">
+    description:
+      "Revitalize your skin with our advanced LED Face and Neck Beauty Device. Designed to massage, smooth and tighten the face, neck, chin and jawline.",
 
-        <label>Hero Text</label>
-        <textarea id="heroText" placeholder="Your hero description"></textarea>
+    whatsappNumber:
+      "+966563747461",
 
-        <label>Product Name</label>
-        <input
-          type="text"
-          id="productName"
-          placeholder="Face and Neck Beauty Device"
-        >
+    productImages: [],
 
-        <label>Old Price (SAR)</label>
-        <input type="number" id="oldPrice" placeholder="249">
+    descriptionImages: [],
 
-        <label>New Price (SAR)</label>
-        <input type="number" id="newPrice" placeholder="179">
+    video: "",
 
-        <label>Product Description</label>
-        <textarea
-          id="description"
-          rows="8"
-          placeholder="Product description"
-        ></textarea>
+    footerText:
+      "© 2026 Raisa Shopy. All Rights Reserved."
+  };
 
-        <label>WhatsApp Number</label>
-        <input
-          type="text"
-          id="whatsappNumber"
-          placeholder="+966 56 374 7461"
-        >
 
-        <label>Footer Text</label>
-        <input
-          type="text"
-          id="footerText"
-          placeholder="© 2026 Raisa Shopy"
-        >
+  // ================================
+  // LOAD SAVED DATA
+  // ================================
 
-        <button id="saveBtn" class="save-btn">
-          Save Changes
-        </button>
+  let shopData;
 
-        <p id="saveMessage"></p>
+  try {
 
-      </section>
+    shopData =
+      JSON.parse(
+        localStorage.getItem("raisaShopData")
+      ) || defaultData;
 
-    </main>
+  } catch (error) {
 
-  </div>
+    shopData = defaultData;
 
-  <script src="dashboard.js"></script>
+  }
 
-</body>
-</html>
+
+  // ================================
+  // LOAD TEXT SETTINGS
+  // ================================
+
+  document.getElementById("shopName").value =
+    shopData.shopName || "";
+
+  document.getElementById("heroTitle").value =
+    shopData.heroTitle || "";
+
+  document.getElementById("heroText").value =
+    shopData.heroText || "";
+
+  document.getElementById("productName").value =
+    shopData.productName || "";
+
+  document.getElementById("oldPrice").value =
+    shopData.oldPrice || "";
+
+  document.getElementById("newPrice").value =
+    shopData.newPrice || "";
+
+  document.getElementById("description").value =
+    shopData.description || "";
+
+  document.getElementById("whatsappNumber").value =
+    shopData.whatsappNumber || "";
+
+  document.getElementById("footerText").value =
+    shopData.footerText || "";
+
+
+  // ================================
+  // IMAGE TO BASE64
+  // ================================
+
+  function fileToBase64(file) {
+
+    return new Promise((resolve, reject) => {
+
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+
+      reader.onerror = reject;
+
+      reader.readAsDataURL(file);
+
+    });
+
+  }
+
+
+  // ================================
+  // GET IMAGE FILES
+  // ================================
+
+  async function getUploadedImages() {
+
+    const images = [];
+
+    for (let i = 1; i <= 6; i++) {
+
+      const input =
+        document.getElementById(
+          `productImage${i}`
+        );
+
+      if (
+        input &&
+        input.files &&
+        input.files[0]
+      ) {
+
+        const image =
+          await fileToBase64(
+            input.files[0]
+          );
+
+        images.push(image);
+
+      } else if (
+        shopData.productImages &&
+        shopData.productImages[i - 1]
+      ) {
+
+        images.push(
+          shopData.productImages[i - 1]
+        );
+
+      }
+
+    }
+
+    return images;
+  }
+
+
+  // ================================
+  // GET DESCRIPTION IMAGES
+  // ================================
+
+  async function getDescriptionImages() {
+
+    const images = [];
+
+    for (let i = 1; i <= 5; i++) {
+
+      const input =
+        document.getElementById(
+          `descriptionImage${i}`
+        );
+
+      if (
+        input &&
+        input.files &&
+        input.files[0]
+      ) {
+
+        const image =
+          await fileToBase64(
+            input.files[0]
+          );
+
+        images.push(image);
+
+      } else if (
+        shopData.descriptionImages &&
+        shopData.descriptionImages[i - 1]
+      ) {
+
+        images.push(
+          shopData.descriptionImages[i - 1]
+        );
+
+      }
+
+    }
+
+    return images;
+  }
+
+
+  // ================================
+  // GET VIDEO
+  // ================================
+
+  async function getVideo() {
+
+    const videoInput =
+      document.getElementById(
+        "productVideo"
+      );
+
+    if (
+      videoInput &&
+      videoInput.files &&
+      videoInput.files[0]
+    ) {
+
+      return await fileToBase64(
+        videoInput.files[0]
+      );
+
+    }
+
+    return shopData.video || "";
+
+  }
+
+
+  // ================================
+  // SAVE ALL CHANGES
+  // ================================
+
+  document
+    .getElementById("saveBtn")
+    .addEventListener("click", async () => {
+
+      const saveMessage =
+        document.getElementById(
+          "saveMessage"
+        );
+
+      saveMessage.textContent =
+        "Saving...";
+
+
+      try {
+
+        const productImages =
+          await getUploadedImages();
+
+        const descriptionImages =
+          await getDescriptionImages();
+
+        const video =
+          await getVideo();
+
+
+        const updatedData = {
+
+          shopName:
+            document.getElementById(
+              "shopName"
+            ).value.trim(),
+
+          heroTitle:
+            document.getElementById(
+              "heroTitle"
+            ).value.trim(),
+
+          heroText:
+            document.getElementById(
+              "heroText"
+            ).value.trim(),
+
+          productName:
+            document.getElementById(
+              "productName"
+            ).value.trim(),
+
+          oldPrice:
+            Number(
+              document.getElementById(
+                "oldPrice"
+              ).value
+            ),
+
+          newPrice:
+            Number(
+              document.getElementById(
+                "newPrice"
+              ).value
+            ),
+
+          description:
+            document.getElementById(
+              "description"
+            ).value.trim(),
+
+          whatsappNumber:
+            document.getElementById(
+              "whatsappNumber"
+            ).value.trim(),
+
+          productImages:
+            productImages,
+
+          descriptionImages:
+            descriptionImages,
+
+          video:
+            video,
+
+          footerText:
+            document.getElementById(
+              "footerText"
+            ).value.trim()
+
+        };
+
+
+        // Save to browser
+        localStorage.setItem(
+          "raisaShopData",
+          JSON.stringify(
+            updatedData
+          )
+        );
+
+
+        // Update current data
+        shopData =
+          updatedData;
+
+
+        saveMessage.textContent =
+          "✓ All changes saved successfully!";
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        saveMessage.textContent =
+          "Error saving changes. Please try again.";
+
+      }
+
+
+      setTimeout(() => {
+
+        saveMessage.textContent = "";
+
+      }, 4000);
+
+    });
+
+
+  // ================================
+  // LOGOUT
+  // ================================
+
+  document
+    .getElementById("logoutBtn")
+    .addEventListener("click", () => {
+
+      localStorage.removeItem(
+        "raisaAdminLoggedIn"
+      );
+
+      window.location.href =
+        "login.html";
+
+    });
+
+});
+```
