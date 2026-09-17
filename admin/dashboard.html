@@ -1,3 +1,5 @@
+<!-- admin/dashboard.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,223 +15,77 @@
 
   <div class="dashboard">
 
-    <!-- Dashboard Header -->
     <header class="dashboard-header">
-
       <div>
-        <h1>🛍️ Raisa Shopy</h1>
+        <h1>Raisa Shopy</h1>
         <p>Admin Dashboard</p>
       </div>
 
       <button id="logoutBtn" class="logout-btn">
         Logout
       </button>
-
     </header>
 
+    <main class="dashboard-content">
 
-    <!-- Page Setup -->
-    <section class="admin-card">
+      <section class="admin-card">
 
-      <h2>⚙️ Page Setup</h2>
+        <h2>Shop Settings</h2>
 
-      <label>Shop Name</label>
+        <label>Shop Name</label>
+        <input type="text" id="shopName" placeholder="Raisa Shopy">
 
-      <input
-        type="text"
-        id="shopName"
-        placeholder="Raisa Shopy"
-      >
+        <label>Hero Title</label>
+        <input type="text" id="heroTitle" placeholder="Your main title">
 
+        <label>Hero Text</label>
+        <textarea id="heroText" placeholder="Your hero description"></textarea>
 
-      <label>Hero Title</label>
+        <label>Product Name</label>
+        <input
+          type="text"
+          id="productName"
+          placeholder="Face and Neck Beauty Device"
+        >
 
-      <input
-        type="text"
-        id="heroTitle"
-        placeholder="Welcome to Raisa Shopy"
-      >
+        <label>Old Price (SAR)</label>
+        <input type="number" id="oldPrice" placeholder="249">
 
+        <label>New Price (SAR)</label>
+        <input type="number" id="newPrice" placeholder="179">
 
-      <label>Hero Text</label>
+        <label>Product Description</label>
+        <textarea
+          id="description"
+          rows="8"
+          placeholder="Product description"
+        ></textarea>
 
-      <textarea
-        id="heroText"
-        placeholder="Your shop description"
-      ></textarea>
+        <label>WhatsApp Number</label>
+        <input
+          type="text"
+          id="whatsappNumber"
+          placeholder="+966 56 374 7461"
+        >
 
+        <label>Footer Text</label>
+        <input
+          type="text"
+          id="footerText"
+          placeholder="© 2026 Raisa Shopy"
+        >
 
-      <label>Footer Text</label>
+        <button id="saveBtn" class="save-btn">
+          Save Changes
+        </button>
 
-      <input
-        type="text"
-        id="footerText"
-        placeholder="© Raisa Shopy"
-      >
+        <p id="saveMessage"></p>
 
-    </section>
+      </section>
 
-
-    <!-- Product Information -->
-    <section class="admin-card">
-
-      <h2>🛍️ Product Information</h2>
-
-      <label>Product Name</label>
-
-      <input
-        type="text"
-        id="productName"
-        placeholder="Product name"
-      >
-
-
-      <label>Old Price (SAR)</label>
-
-      <input
-        type="number"
-        id="oldPrice"
-        placeholder="199"
-      >
-
-
-      <label>New Price (SAR)</label>
-
-      <input
-        type="number"
-        id="newPrice"
-        placeholder="149"
-      >
-
-
-      <label>Product Description</label>
-
-      <textarea
-        id="description"
-        placeholder="Write product description..."
-      ></textarea>
-
-    </section>
-
-
-    <!-- WhatsApp -->
-    <section class="admin-card">
-
-      <h2>📱 WhatsApp Order</h2>
-
-      <label>WhatsApp Number</label>
-
-      <input
-        type="text"
-        id="whatsappNumber"
-        placeholder="9665XXXXXXXX"
-      >
-
-      <small>
-        Enter number with country code.
-        Example: 9665XXXXXXXX
-      </small>
-
-    </section>
-
-
-    <!-- Product Images -->
-    <section class="admin-card">
-
-      <h2>📸 Product Images</h2>
-
-      <p>
-        Maximum <strong>6 images</strong>
-      </p>
-
-      <input
-        type="file"
-        id="productImages"
-        accept="image/*"
-        multiple
-      >
-
-      <div
-        id="productImagePreview"
-        class="image-preview"
-      ></div>
-
-    </section>
-
-
-    <!-- Description Images -->
-    <section class="admin-card">
-
-      <h2>🖼️ Description Images</h2>
-
-      <p>
-        Maximum <strong>5 images</strong>
-      </p>
-
-      <input
-        type="file"
-        id="descriptionImages"
-        accept="image/*"
-        multiple
-      >
-
-      <div
-        id="descriptionImagePreview"
-        class="image-preview"
-      ></div>
-
-    </section>
-
-
-    <!-- Product Video -->
-    <section class="admin-card">
-
-      <h2>🎬 Product Video</h2>
-
-      <p>
-        Upload maximum <strong>1 video</strong>
-      </p>
-
-      <input
-        type="file"
-        id="productVideo"
-        accept="video/*"
-      >
-
-      <div id="videoPreview"></div>
-
-    </section>
-
-
-    <!-- Save -->
-    <section class="admin-card save-card">
-
-      <button
-        id="saveBtn"
-        class="save-btn"
-      >
-        💾 SAVE ALL CHANGES
-      </button>
-
-      <p id="saveMessage"></p>
-
-    </section>
-
-
-    <!-- Open Shop -->
-    <section class="admin-card shop-link-card">
-
-      <a
-        href="../index.html"
-        target="_blank"
-      >
-        🌐 Open Raisa Shopy
-      </a>
-
-    </section>
+    </main>
 
   </div>
-
 
   <script src="dashboard.js"></script>
 
