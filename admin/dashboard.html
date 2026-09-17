@@ -1,5 +1,4 @@
-<!-- admin/dashboard.html -->
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +14,9 @@
 
   <div class="dashboard">
 
+    <!-- HEADER -->
     <header class="dashboard-header">
+
       <div>
         <h1>Raisa Shopy</h1>
         <p>Admin Dashboard</p>
@@ -24,22 +25,44 @@
       <button id="logoutBtn" class="logout-btn">
         Logout
       </button>
+
     </header>
+
 
     <main class="dashboard-content">
 
+      <!-- SHOP SETTINGS -->
       <section class="admin-card">
 
         <h2>Shop Settings</h2>
 
         <label>Shop Name</label>
-        <input type="text" id="shopName" placeholder="Raisa Shopy">
+        <input
+          type="text"
+          id="shopName"
+          placeholder="Raisa Shopy"
+        >
 
         <label>Hero Title</label>
-        <input type="text" id="heroTitle" placeholder="Your main title">
+        <input
+          type="text"
+          id="heroTitle"
+          placeholder="Face and Neck Beauty Device"
+        >
 
         <label>Hero Text</label>
-        <textarea id="heroText" placeholder="Your hero description"></textarea>
+        <textarea
+          id="heroText"
+          placeholder="Revitalize your skin with advanced LED therapy"
+        ></textarea>
+
+      </section>
+
+
+      <!-- PRODUCT SETTINGS -->
+      <section class="admin-card">
+
+        <h2>Product Settings</h2>
 
         <label>Product Name</label>
         <input
@@ -49,10 +72,18 @@
         >
 
         <label>Old Price (SAR)</label>
-        <input type="number" id="oldPrice" placeholder="249">
+        <input
+          type="number"
+          id="oldPrice"
+          placeholder="249"
+        >
 
         <label>New Price (SAR)</label>
-        <input type="number" id="newPrice" placeholder="179">
+        <input
+          type="number"
+          id="newPrice"
+          placeholder="179"
+        >
 
         <label>Product Description</label>
         <textarea
@@ -68,15 +99,153 @@
           placeholder="+966 56 374 7461"
         >
 
+      </section>
+
+
+      <!-- PRODUCT IMAGES -->
+      <section class="admin-card">
+
+        <h2>Product Images</h2>
+
+        <p class="help-text">
+          Upload up to 6 product images.
+        </p>
+
+        <label>Product Image 1</label>
+        <input
+          type="file"
+          id="productImage1"
+          accept="image/*"
+        >
+
+        <label>Product Image 2</label>
+        <input
+          type="file"
+          id="productImage2"
+          accept="image/*"
+        >
+
+        <label>Product Image 3</label>
+        <input
+          type="file"
+          id="productImage3"
+          accept="image/*"
+        >
+
+        <label>Product Image 4</label>
+        <input
+          type="file"
+          id="productImage4"
+          accept="image/*"
+        >
+
+        <label>Product Image 5</label>
+        <input
+          type="file"
+          id="productImage5"
+          accept="image/*"
+        >
+
+        <label>Product Image 6</label>
+        <input
+          type="file"
+          id="productImage6"
+          accept="image/*"
+        >
+
+      </section>
+
+
+      <!-- DESCRIPTION IMAGES -->
+      <section class="admin-card">
+
+        <h2>Description Images</h2>
+
+        <p class="help-text">
+          Upload up to 5 description images.
+        </p>
+
+        <label>Description Image 1</label>
+        <input
+          type="file"
+          id="descriptionImage1"
+          accept="image/*"
+        >
+
+        <label>Description Image 2</label>
+        <input
+          type="file"
+          id="descriptionImage2"
+          accept="image/*"
+        >
+
+        <label>Description Image 3</label>
+        <input
+          type="file"
+          id="descriptionImage3"
+          accept="image/*"
+        >
+
+        <label>Description Image 4</label>
+        <input
+          type="file"
+          id="descriptionImage4"
+          accept="image/*"
+        >
+
+        <label>Description Image 5</label>
+        <input
+          type="file"
+          id="descriptionImage5"
+          accept="image/*"
+        >
+
+      </section>
+
+
+      <!-- VIDEO -->
+      <section class="admin-card">
+
+        <h2>Product Video</h2>
+
+        <p class="help-text">
+          Upload your product video.
+        </p>
+
+        <input
+          type="file"
+          id="productVideo"
+          accept="video/mp4,video/webm,video/quicktime"
+        >
+
+      </section>
+
+
+      <!-- FOOTER -->
+      <section class="admin-card">
+
+        <h2>Footer</h2>
+
         <label>Footer Text</label>
+
         <input
           type="text"
           id="footerText"
-          placeholder="© 2026 Raisa Shopy"
+          placeholder="© 2026 Raisa Shopy. All Rights Reserved."
         >
 
-        <button id="saveBtn" class="save-btn">
-          Save Changes
+      </section>
+
+
+      <!-- SAVE -->
+      <section class="admin-card save-card">
+
+        <button
+          id="saveBtn"
+          class="save-btn"
+          type="button"
+        >
+          Save All Changes
         </button>
 
         <p id="saveMessage"></p>
@@ -87,7 +256,9 @@
 
   </div>
 
+
   <script src="dashboard.js"></script>
 
 </body>
 </html>
+```
